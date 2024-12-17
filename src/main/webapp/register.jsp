@@ -25,6 +25,44 @@
 
     <!-- JS 파일에 대한 script테그를 수정하십시오 -->
     <script defer src="${pageContext.request.contextPath}/public/js/functions.js"></script>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("form").addEventListener("submit", (e) => {
+      const name = document.getElementById("floatingName").value.trim();
+      const email = document.getElementById("floatingEmail").value.trim();
+      const phone = document.getElementById("floatingPhone").value.trim();
+      const password = document.querySelector('input[name="password"]').value.trim();
+      const gender = document.querySelector('input[name="gender"]:checked');
+      const hobbies = document.querySelectorAll('input[name="hobbies"]:checked');
+      	
+      let errorMessage = "";
+
+      if (!name) {
+        errorMessage += "Name is required.\n";
+      }
+      if (!email || !email.match(/^\S+@\S+\.\S+$/)) {
+        errorMessage += "Valid email is required.\n";
+      }
+      if (!phone || !phone.match(/^[0-9]{10}$/)) {
+        errorMessage += "Phone must be a 10-digit number.\n";
+      }
+      if (!password || password.length < 6) {
+        errorMessage += "Password must be at least 6 characters.\n";
+      }
+      if (!gender) {
+        errorMessage += "Please select your gender.\n";
+      }
+      if (hobbies.length === 0) {
+        errorMessage += "Please select at least one hobby.\n";
+      }
+
+      if (errorMessage) {
+        alert(errorMessage);
+        e.preventDefault();
+      }
+    });
+  });
+</script>
   </head>
 
   <body>
